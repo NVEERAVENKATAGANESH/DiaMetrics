@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiaMetrics — Diabetes Health Tracker</title>
+  <meta name="description" content="Personal diabetes management: glucose logs, HbA1c tracking, medications, lab results, analytics and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     LANDING PAGE
+══════════════════════════════════════════════════════════════ -->
+<div id="landing-view">
+  <div class="landing">
+
+    <!-- ── Nav ── -->
+    <nav class="land-nav">
+      <div class="land-nav-brand">
+        <div class="land-logo-box">💉</div>
+        <span>DiaMetrics</span>
+      </div>
+      <div class="land-nav-center">
+        <a class="land-nav-link" href="#l-features">Features</a>
+        <a class="land-nav-link" href="#l-cta">Demo</a>
+      </div>
+      <div class="land-nav-links">
+        <button class="btn btn-ghost" onclick="openM('m-login')">Sign in</button>
+        <button class="btn btn-p" onclick="openM('m-signup')">Get started</button>
+      </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+      <div class="hero-text fade-in">
+        <h1>Diabetes tracking<br>that stays out of<br>your way.</h1>
+        <p>Log glucose, medications, labs, meals, and exercise. See patterns. Stay in control. Everything private and on-device.</p>
+        <div class="hero-btns">
+          <button class="btn btn-p btn-lg" onclick="openM('m-signup')">Create free account</button>
+          <button class="btn btn-ghost btn-lg" onclick="demoLogin()">Try demo</button>
+        </div>
+        <div class="hero-trust">
+          <span>No account required to try</span>
+          <span class="hero-trust-dot"></span>
+          <span>All data stays on your device</span>
+          <span class="hero-trust-dot"></span>
+          <span>Free</span>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-in">
+        <!-- macOS-style window -->
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="mock-dots">
+              <span class="mock-dot mock-dot-r"></span>
+              <span class="mock-dot mock-dot-y"></span>
+              <span class="mock-dot mock-dot-g"></span>
+            </div>
+            <div class="mock-win-title">DiaMetrics — Dashboard</div>
+          </div>
+          <div class="mock-body">
+            <!-- Stat cards -->
+            <div class="mock-stat-row">
+              <div class="mock-stat">
+                <div class="mock-stat-val" style="color:#3b82f6" id="lp-tir">72%</div>
+                <div class="mock-stat-lbl">TIME IN RANGE</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-val" style="color:#10b981" id="lp-a1c">6.9%</div>
+                <div class="mock-stat-lbl">EST. HbA1c</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-val" style="color:#8b5cf6" id="lp-avg">118</div>
+                <div class="mock-stat-lbl">AVG GLUCOSE</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-val" style="color:#f59e0b" id="lp-streak">30d</div>
+                <div class="mock-stat-lbl">STREAK</div>
+              </div>
+            </div>
+            <!-- SVG chart -->
+            <div class="mock-chart">
+              <div class="mock-chart-label">GLUCOSE — LAST 7 DAYS</div>
+              <svg viewBox="0 0 300 64" preserveAspectRatio="none" class="mock-svg-chart" aria-hidden="true">
+                <defs>
+                  <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="20" width="300" height="22" fill="#f0fdf4" rx="0"/>
+                <polygon points="0,44 43,36 86,50 129,18 172,32 215,26 258,40 300,30 300,64 0,64" fill="url(#gc)"/>
+                <polyline points="0,44 43,36 86,50 129,18 172,32 215,26 258,40 300,30"
+                  fill="none" stroke="#3b82f6" stroke-width="1.6"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+                <circle cx="129" cy="18" r="2.5" fill="#3b82f6"/>
+                <circle cx="215" cy="26" r="2.5" fill="#3b82f6"/>
+              </svg>
+              <div class="mock-chart-labels">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+              </div>
+            </div>
+            <!-- Recent readings -->
+            <div class="mock-readings-label">RECENT READINGS</div>
+            <div class="mock-reading-row">
+              <div class="mock-reading-meta">
+                <span class="mock-reading-type">Fasting</span>
+                <span class="mock-reading-time">8:00 AM</span>
+              </div>
+              <span class="mock-reading-val">104 mg/dL</span>
+              <span class="mock-pill mock-pill-ok">Normal</span>
+            </div>
+            <div class="mock-reading-row">
+              <div class="mock-reading-meta">
+                <span class="mock-reading-type">Post-Meal</span>
+                <span class="mock-reading-time">1:30 PM</span>
+              </div>
+              <span class="mock-reading-val">138 mg/dL</span>
+              <span class="mock-pill mock-pill-warn">Elevated</span>
+            </div>
+            <div class="mock-reading-row mock-reading-row--last">
+              <div class="mock-reading-meta">
+                <span class="mock-reading-type">Bedtime</span>
+                <span class="mock-reading-time">10:00 PM</span>
+              </div>
+              <span class="mock-reading-val">96 mg/dL</span>
+              <span class="mock-pill mock-pill-ok">Normal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Features ── -->
+    <section class="features" id="l-features">
+      <div class="features-intro">
+        <h2>Everything a diabetes tracker should have</h2>
+        <p>Built around clinical needs, not generic health trends.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 0-7 8-7 13a7 7 0 0014 0c0-5-7-13-7-13z"/></svg>
+          </div>
+          <div>
+            <h3>Glucose Logging</h3>
+            <p>Fasting, pre-meal, post-meal, bedtime. Time-in-range and variability analytics included.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M8 3L4 13c-1 2.5 0 6.5 4 8h8c4-1.5 5-5.5 4-8L16 3"/><line x1="8" y1="13" x2="16" y2="13"/></svg>
+          </div>
+          <div>
+            <h3>Lab Results</h3>
+            <p>HbA1c, cholesterol, kidney function tracked over time with reference ranges built in.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="6" rx="3"/><line x1="12" y1="11" x2="12" y2="17"/></svg>
+          </div>
+          <div>
+            <h3>Medications</h3>
+            <p>Mark daily doses, track 7-day adherence, and get refill reminders before you run out.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 17 9 10 14 15 22 7"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div>
+            <h3>Advanced Analytics</h3>
+            <p>Heatmaps, sleep and exercise correlations, CV score, 7-day forecast, anomaly detection.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <h3>Calendar View</h3>
+            <p>Month view with colour-coded glucose, meal, exercise, and medication markers at a glance.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          </div>
+          <div>
+            <h3>PDF Reports</h3>
+            <p>Printable health summaries with stats, labs, and medications — ready for your doctor.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <h3>Multi-Profile</h3>
+            <p>Manage yourself and family members on one device. Switch profiles instantly.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3>100% Private</h3>
+            <p>All data lives in your browser. No server, no account required, nothing leaves your device.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h3>Insulin Log</h3>
+            <p>Track dose types, sites, and timing. See rapid insulin dose vs post-meal glucose response.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="land-cta" id="l-cta">
+      <h2>Start tracking in seconds.</h2>
+      <p>No sign-up required. Open the demo account and explore 90 days of real data instantly.</p>
+      <div class="land-cta-btns">
+        <button class="btn btn-p btn-lg" onclick="openM('m-signup')">Create free account</button>
+        <button class="btn btn-ghost btn-lg" onclick="demoLogin()">Open demo</button>
+      </div>
+    </section>
+
+    <footer class="land-footer">
+      <p>&copy; 2026 DiaMetrics &nbsp;·&nbsp; For personal use only &nbsp;·&nbsp; Not a substitute for medical advice &nbsp;·&nbsp; All data stored locally</p>
+    </footer>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════════════════════════════ -->
+<div id="app-shell">
+
+  <!-- ── Top Navbar ─────────────────────────────────────────────── -->
+  <header id="topnav">
+
+    <!-- Row 1: brand · title · user controls -->
+    <div id="tn-row1">
+      <!-- Hamburger (mobile only, left) -->
+      <button id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Brand (left) -->
+      <div class="tn-brand">
+        <div class="tn-logo-circle">💉</div>
+        <span class="tn-logo-text">DiaMetrics</span>
+      </div>
+
+      <!-- App title (center) -->
+      <div class="tn-title">Diabetes Health Manager</div>
+
+      <!-- Right controls -->
+      <div class="tn-right">
+        <button id="theme-toggle" title="Toggle theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button id="notif-btn" onclick="Notifs.toggle()" title="Notifications">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span id="notif-count"></span>
+        </button>
+        <div class="tn-user-wrap">
+          <div class="tn-avatar" id="tn-avatar" onclick="go('profiles')" style="cursor:pointer" title="My Profile">A</div>
+          <div class="tn-user-info" onclick="go('profiles')" style="cursor:pointer" title="My Profile">
+            <span id="topbar-name" class="tn-user-name">—</span>
+            <span class="tn-user-role">Patient</span>
+          </div>
+          <button class="tn-user-chevron" onclick="toggleUserMenu()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="tn-user-menu">
+            <select id="topbar-profile" title="Switch profile"></select>
+            <button class="nav-link" data-page="profiles">👤 Profiles</button>
+            <button class="nav-link" data-page="settings">⚙️ Settings</button>
+            <div class="tn-menu-divider"></div>
+            <button class="nav-link tn-logout-item" onclick="logout()">🚪 Log Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: navigation tabs -->
+    <nav id="tn-nav">
+      <!-- Dashboard (direct link) -->
+      <button class="tn-tab" data-page="dashboard">Dashboard</button>
+
+      <!-- Logs dropdown -->
+      <div class="tn-group">
+        <button class="tn-tab tn-has-drop">Logs
+          <svg class="tn-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tn-dropdown">
+          <button class="nav-link" data-page="glucose">🩸 Glucose</button>
+          <button class="nav-link" data-page="weight">⚖️ Weight</button>
+          <button class="nav-link" data-page="meals">🍽️ Meals</button>
+          <button class="nav-link" data-page="exercise">🏃 Exercise</button>
+          <button class="nav-link" data-page="insulin">💉 Insulin</button>
+          <button class="nav-link" data-page="sleep">😴 Sleep &amp; Stress</button>
+          <button class="nav-link" data-page="notes">📝 Journal</button>
+        </div>
+      </div>
+
+      <!-- Health dropdown -->
+      <div class="tn-group">
+        <button class="tn-tab tn-has-drop">Health
+          <svg class="tn-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tn-dropdown">
+          <button class="nav-link" data-page="labs">🧪 Lab Results</button>
+          <button class="nav-link" data-page="medications">💊 Medications</button>
+          <button class="nav-link" data-page="goals">🎯 Goals</button>
+          <button class="nav-link" data-page="achievements">🏆 Achievements</button>
+        </div>
+      </div>
+
+      <!-- Analytics (direct) -->
+      <button class="tn-tab" data-page="analytics">Analytics</button>
+
+      <!-- Calendar (direct) -->
+      <button class="tn-tab" data-page="calendar">Calendar</button>
+
+      <!-- Reports dropdown -->
+      <div class="tn-group">
+        <button class="tn-tab tn-has-drop">Reports
+          <svg class="tn-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tn-dropdown">
+          <button class="nav-link" data-page="reports">📄 Reports &amp; Export</button>
+          <button class="nav-link" data-page="auditlog">📋 Audit Log</button>
+        </div>
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- Mobile drawer -->
+  <div id="mob-drawer">
+    <div class="mob-section">
+      <div class="mob-section-label">Overview</div>
+      <button class="nav-link" data-page="dashboard"><span class="nav-icon">🏠</span>Dashboard</button>
+      <button class="nav-link" data-page="calendar"><span class="nav-icon">📅</span>Calendar</button>
+      <button class="nav-link" data-page="analytics"><span class="nav-icon">📊</span>Analytics</button>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-label">Logs</div>
+      <button class="nav-link" data-page="glucose"><span class="nav-icon">🩸</span>Glucose</button>
+      <button class="nav-link" data-page="weight"><span class="nav-icon">⚖️</span>Weight</button>
+      <button class="nav-link" data-page="meals"><span class="nav-icon">🍽️</span>Meals</button>
+      <button class="nav-link" data-page="exercise"><span class="nav-icon">🏃</span>Exercise</button>
+      <button class="nav-link" data-page="insulin"><span class="nav-icon">💉</span>Insulin</button>
+      <button class="nav-link" data-page="sleep"><span class="nav-icon">😴</span>Sleep &amp; Stress</button>
+      <button class="nav-link" data-page="notes"><span class="nav-icon">📝</span>Journal</button>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-label">Health</div>
+      <button class="nav-link" data-page="labs"><span class="nav-icon">🧪</span>Lab Results</button>
+      <button class="nav-link" data-page="medications"><span class="nav-icon">💊</span>Medications</button>
+      <button class="nav-link" data-page="goals"><span class="nav-icon">🎯</span>Goals</button>
+      <button class="nav-link" data-page="achievements"><span class="nav-icon">🏆</span>Achievements</button>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-label">Account</div>
+      <button class="nav-link" data-page="profiles"><span class="nav-icon">👤</span>Profiles</button>
+      <button class="nav-link" data-page="reports"><span class="nav-icon">📄</span>Reports</button>
+      <button class="nav-link" data-page="auditlog"><span class="nav-icon">📋</span>Audit Log</button>
+      <button class="nav-link" data-page="settings"><span class="nav-icon">⚙️</span>Settings</button>
+    </div>
+    <div class="mob-section">
+      <button class="nav-link" onclick="logout();closeMobDrawer()"><span class="nav-icon">🚪</span>Log Out</button>
+    </div>
+  </div>
+  <div id="mob-overlay" onclick="closeMobDrawer()"></div>
+
+  <!-- Main -->
+  <div id="main-content">
+    <div id="notif-panel"></div>
+
+    <!-- Pages -->
+    <div class="page-wrap">
+
+      <!-- ── Dashboard ─────────────────────────────────────────── -->
+      <div id="page-dashboard" class="page-section" style="display:none">
+        <div class="section-header mb-24">
+          <h2>Dashboard</h2>
+          <div class="quick-add-bar">
+            <button class="btn btn-p btn-sm" onclick="openAddGlucose()">🩸 Glucose</button>
+            <button class="btn btn-g btn-sm" onclick="openAddWeight()">⚖️ Weight</button>
+            <button class="btn btn-g btn-sm" onclick="openAddMeal()">🍽️ Meal</button>
+            <button class="btn btn-g btn-sm" onclick="openAddExercise()">🏃 Exercise</button>
+            <button class="btn btn-g btn-sm" onclick="openAddSleep()">😴 Sleep</button>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card" id="dash-last-g"><div class="skel" style="height:28px;margin-bottom:6px"></div><div class="skel" style="height:12px;width:60%"></div></div>
+          <div class="stat-card" id="dash-avg-g"></div>
+          <div class="stat-card" id="dash-tir"></div>
+          <div class="stat-card" id="dash-a1c"></div>
+          <div class="stat-card" id="dash-streak"></div>
+          <div class="stat-card" id="dash-risk"></div>
+          <div class="stat-card" id="dash-bmi"></div>
+        </div>
+        <div class="dash-grid">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Glucose — Last 14 Days</span></div>
+            <div class="chart-wrap"><canvas id="dash-gluc-chart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Today's Readings</span><button class="btn btn-sm btn-p" onclick="openAddGlucose()">+ Add</button></div>
+            <div id="dash-today"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Medications Today</span></div>
+            <div id="dash-meds"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Alerts</span></div>
+            <div id="dash-alerts"></div>
+          </div>
+          <div class="card dash-grid-full">
+            <div class="card-header"><span class="card-title">Recent Achievements</span><button class="btn btn-sm btn-g" onclick="go('achievements')">View All</button></div>
+            <div id="dash-achievements"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Glucose ────────────────────────────────────────────── -->
+      <div id="page-glucose" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Glucose Log</h2>
+          <button class="btn btn-p" onclick="openAddGlucose()">+ Add Reading</button>
+        </div>
+        <div class="card mb-24">
+          <div class="chart-wrap"><canvas id="gl-trend-chart"></canvas></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="gl-from" oninput="rGlucoseLogs()"></label>
+          <label>To <input type="date" id="gl-to" oninput="rGlucoseLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('gl-from').value='';$('gl-to').value='';rGlucoseLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="gl-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="time">Time</th>
+                <th data-sort="type">Type</th><th data-sort="value">Value</th>
+                <th>Status</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="gl-tbody"></tbody>
+            </table>
+          </div>
+          <div id="gl-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Weight ─────────────────────────────────────────────── -->
+      <div id="page-weight" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Weight Log</h2>
+          <button class="btn btn-p" onclick="openAddWeight()">+ Add Entry</button>
+        </div>
+        <div class="card mb-24">
+          <div class="chart-wrap"><canvas id="wl-chart"></canvas></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="wl-from" oninput="rWeightLogs()"></label>
+          <label>To <input type="date" id="wl-to" oninput="rWeightLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('wl-from').value='';$('wl-to').value='';rWeightLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="wl-table">
+              <thead><tr><th data-sort="date">Date</th><th data-sort="value">Weight</th><th>Notes</th><th>Actions</th></tr></thead>
+              <tbody id="wl-tbody"></tbody>
+            </table>
+          </div>
+          <div id="wl-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Meals ──────────────────────────────────────────────── -->
+      <div id="page-meals" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Meal Log</h2>
+          <button class="btn btn-p" onclick="openAddMeal()">+ Log Meal</button>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Meal Pattern Analysis — Avg Post-Meal Glucose by Meal Type</span></div>
+          <div class="chart-wrap"><canvas id="ml-pattern-chart"></canvas></div>
+          <div id="ml-pattern"></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="ml-from" oninput="rMealLogs()"></label>
+          <label>To <input type="date" id="ml-to" oninput="rMealLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('ml-from').value='';$('ml-to').value='';rMealLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="ml-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="mealType">Meal</th>
+                <th>Description</th><th data-sort="carbsG">Carbs</th>
+                <th data-sort="caloriesKcal">Calories</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="ml-tbody"></tbody>
+            </table>
+          </div>
+          <div id="ml-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Exercise ───────────────────────────────────────────── -->
+      <div id="page-exercise" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Exercise Log</h2>
+          <button class="btn btn-p" onclick="openAddExercise()">+ Log Exercise</button>
+        </div>
+        <div class="charts-2col mb-24">
+          <div class="card"><div class="card-header"><span class="card-title">Weekly Activity (Total Duration)</span></div><div class="chart-wrap"><canvas id="ex-weekly-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">Exercise Duration vs Next-Day Glucose</span></div><div class="chart-wrap"><canvas id="ex-corr-chart"></canvas></div></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="ex-from" oninput="rExerciseLogs()"></label>
+          <label>To <input type="date" id="ex-to" oninput="rExerciseLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('ex-from').value='';$('ex-to').value='';rExerciseLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="ex-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="type">Type</th>
+                <th data-sort="duration">Duration</th><th data-sort="intensity">Intensity</th>
+                <th data-sort="steps">Steps</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="ex-tbody"></tbody>
+            </table>
+          </div>
+          <div id="ex-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Insulin ────────────────────────────────────────────── -->
+      <div id="page-insulin" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Insulin Log</h2>
+          <button class="btn btn-p" onclick="openAddInsulin()">+ Log Dose</button>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Rapid Insulin Dose vs Post-Meal Glucose Response</span></div>
+          <div class="chart-wrap"><canvas id="in-response-chart"></canvas></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="in-from" oninput="rInsulinLogs()"></label>
+          <label>To <input type="date" id="in-to" oninput="rInsulinLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('in-from').value='';$('in-to').value='';rInsulinLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="in-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="time">Time</th>
+                <th data-sort="insulinType">Type</th><th data-sort="units">Units</th>
+                <th>Site</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="in-tbody"></tbody>
+            </table>
+          </div>
+          <div id="in-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Sleep & Stress ─────────────────────────────────────── -->
+      <div id="page-sleep" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Sleep &amp; Stress Log</h2>
+          <button class="btn btn-p" onclick="openAddSleep()">+ Log Sleep</button>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Sleep Hours vs Next-Day Glucose</span></div>
+          <div class="chart-wrap"><canvas id="sl-corr-chart"></canvas></div>
+        </div>
+        <div class="filter-toolbar mb-16">
+          <label>From <input type="date" id="sl-from" oninput="rSleepLogs()"></label>
+          <label>To <input type="date" id="sl-to" oninput="rSleepLogs()"></label>
+          <button class="btn btn-sm btn-g" onclick="$('sl-from').value='';$('sl-to').value='';rSleepLogs()">Clear</button>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="sl-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="hours">Hours</th>
+                <th data-sort="quality">Quality</th><th data-sort="stress">Stress</th>
+                <th>Actions</th>
+              </tr></thead>
+              <tbody id="sl-tbody"></tbody>
+            </table>
+          </div>
+          <div id="sl-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Journal ────────────────────────────────────────────── -->
+      <div id="page-notes" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Symptom Journal</h2>
+          <button class="btn btn-p" onclick="openAddNote()">+ Write Entry</button>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Symptom Frequency</span></div>
+          <div class="chart-wrap"><canvas id="symptom-freq-chart"></canvas></div>
+        </div>
+        <div class="notes-toolbar">
+          <input type="text" id="notes-search" placeholder="Search notes…" oninput="rNotes()" style="max-width:280px">
+        </div>
+        <div id="notes-list"></div>
+      </div>
+
+      <!-- ── Lab Results ────────────────────────────────────────── -->
+      <div id="page-labs" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Lab Results</h2>
+          <button class="btn btn-p" onclick="openAddLab()">+ Add Result</button>
+        </div>
+        <div class="charts-2col mb-24">
+          <div class="card"><div class="card-header"><span class="card-title">HbA1c Trend</span></div><div class="chart-wrap-sm"><canvas id="lr-a1c-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">Fasting Glucose</span></div><div class="chart-wrap-sm"><canvas id="lr-fg-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">Total Cholesterol</span></div><div class="chart-wrap-sm"><canvas id="lr-chol-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">eGFR (Kidney)</span></div><div class="chart-wrap-sm"><canvas id="lr-egfr-chart"></canvas></div></div>
+        </div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="lr-table">
+              <thead><tr>
+                <th data-sort="date">Date</th><th data-sort="test">Test</th>
+                <th data-sort="value">Value</th><th>Status</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="lr-tbody"></tbody>
+            </table>
+          </div>
+          <div id="lr-tbody-pager"></div>
+        </div>
+      </div>
+
+      <!-- ── Medications ────────────────────────────────────────── -->
+      <div id="page-medications" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Medications &amp; Supplements</h2>
+          <button class="btn btn-p" onclick="openAddMed()">+ Add Medication</button>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">7-Day Adherence</span></div>
+          <div class="chart-wrap-sm"><canvas id="med-adh-chart"></canvas></div>
+        </div>
+        <div id="med-list"></div>
+      </div>
+
+      <!-- ── Analytics ──────────────────────────────────────────── -->
+      <div id="page-analytics" class="page-section" style="display:none">
+        <div class="section-header"><h2>Analytics</h2></div>
+        <div class="an-period-row">
+          <label>Period:</label>
+          <select id="an-period" onchange="rAnalytics()">
+            <option value="7">Last 7 days</option>
+            <option value="14">Last 14 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+          <span class="muted" style="margin:0 8px">or custom:</span>
+          <input type="date" id="an-from" onchange="rAnalytics()" style="font-size:.85rem">
+          <span class="muted">–</span>
+          <input type="date" id="an-to" onchange="rAnalytics()" style="font-size:.85rem">
+          <button class="btn btn-sm btn-g" onclick="$('an-from').value='';$('an-to').value='';rAnalytics()">Reset</button>
+        </div>
+        <div class="stats-grid mb-24">
+          <div class="stat-card" id="an-avg"></div>
+          <div class="stat-card" id="an-min"></div>
+          <div class="stat-card" id="an-max"></div>
+          <div class="stat-card" id="an-sd"></div>
+          <div class="stat-card" id="an-cv"></div>
+          <div class="stat-card" id="an-tir"></div>
+          <div class="stat-card" id="an-a1c"></div>
+          <div class="stat-card" id="an-count"></div>
+        </div>
+        <div class="charts-2col mb-24">
+          <div class="card"><div class="card-header"><span class="card-title">Time in Range</span><button type="button" class="btn btn-sm btn-g" onclick="exportChartPNG('an-tir-chart','tir')">⬇ PNG</button></div><div class="chart-wrap"><canvas id="an-tir-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">Daily Average</span><button type="button" class="btn btn-sm btn-g" onclick="exportChartPNG('an-daily-chart','daily-avg')">⬇ PNG</button></div><div class="chart-wrap"><canvas id="an-daily-chart"></canvas></div></div>
+        </div>
+        <div class="charts-2col mb-24">
+          <div class="card"><div class="card-header"><span class="card-title">Average by Reading Type</span><button type="button" class="btn btn-sm btn-g" onclick="exportChartPNG('an-type-chart','by-type')">⬇ PNG</button></div><div class="chart-wrap"><canvas id="an-type-chart"></canvas></div></div>
+          <div class="card"><div class="card-header"><span class="card-title">7-Day Forecast</span><button type="button" class="btn btn-sm btn-g" onclick="exportChartPNG('an-forecast-chart','forecast')">⬇ PNG</button></div><div id="an-forecast"><div class="chart-wrap"><canvas id="an-forecast-chart"></canvas></div></div></div>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Glucose Heatmap (by Hour &amp; Day)</span></div>
+          <div style="overflow-x:auto"><canvas id="an-heat-canvas" style="width:100%;height:200px"></canvas></div>
+        </div>
+        <div class="card mb-24">
+          <div class="card-header"><span class="card-title">Correlations</span></div>
+          <div id="an-correlations"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Anomalous Readings</span></div>
+          <div id="an-anomalies"></div>
+        </div>
+      </div>
+
+      <!-- ── Goals ──────────────────────────────────────────────── -->
+      <div id="page-goals" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Goals &amp; Targets</h2>
+          <button class="btn btn-p" onclick="openAddGoal()">+ Set Goal</button>
+        </div>
+        <div id="goals-list"></div>
+      </div>
+
+      <!-- ── Achievements ───────────────────────────────────────── -->
+      <div id="page-achievements" class="page-section" style="display:none">
+        <div class="ach-header">
+          <h2>Achievements</h2>
+          <span class="ach-count" id="ach-earned"></span>
+        </div>
+        <div class="badge-grid" id="ach-grid"></div>
+      </div>
+
+      <!-- ── Calendar ───────────────────────────────────────────── -->
+      <div id="page-calendar" class="page-section" style="display:none">
+        <div class="cal-toolbar">
+          <button class="btn btn-g" onclick="calPrev()">‹ Prev</button>
+          <h2 id="cal-month-label"></h2>
+          <button class="btn btn-g" onclick="calNext()">Next ›</button>
+          <button class="btn btn-g" onclick="calToday()">Today</button>
+        </div>
+        <div class="card">
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div class="mt-16 muted" style="font-size:.78rem">Click any day to see detail. Colors: <span style="background:#6ee7b7;padding:1px 8px;border-radius:8px">Normal</span> <span style="background:#fcd34d;padding:1px 8px;border-radius:8px">Elevated</span> <span style="background:#fca5a5;padding:1px 8px;border-radius:8px">High/Hypo</span></div>
+      </div>
+
+      <!-- ── Reports ────────────────────────────────────────────── -->
+      <div id="page-reports" class="page-section" style="display:none">
+        <div class="section-header"><h2>Reports &amp; Export</h2></div>
+        <div class="mb-24">
+          <p style="font-size:.88rem;color:var(--text2)">Profile: <strong id="rep-profile-name">—</strong> · Storage used: <strong id="rep-storage">—</strong></p>
+        </div>
+        <div id="rep-stats" class="mb-24"></div>
+        <div class="rep-grid">
+          <div class="rep-card">
+            <h3>📄 PDF Health Report</h3>
+            <p>A printable summary with glucose stats, lab results, and medications. Perfect for doctor visits.</p>
+            <div class="rep-btns">
+              <button class="btn btn-p" onclick="generatePDF(30)">30-Day Report</button>
+              <button class="btn btn-g" onclick="generatePDF(90)">90-Day Report</button>
+            </div>
+          </div>
+          <div class="rep-card">
+            <h3>📊 CSV Export</h3>
+            <p>Export individual log types as CSV files for use in Excel, Google Sheets or with your doctor.</p>
+            <div class="rep-btns">
+              <button class="btn btn-sm btn-g" onclick="exportCSV('glucose')">Glucose</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('weight')">Weight</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('labs')">Labs</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('meals')">Meals</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('exercise')">Exercise</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('insulin')">Insulin</button>
+              <button class="btn btn-sm btn-g" onclick="exportCSV('sleep')">Sleep</button>
+            </div>
+          </div>
+          <div class="rep-card">
+            <h3>📦 Full Backup</h3>
+            <p>Export or import a complete JSON backup of all your data. Use to move data between devices.</p>
+            <div class="rep-btns">
+              <button class="btn btn-p" onclick="exportBackup()">Download Backup</button>
+            </div>
+            <div class="divider"></div>
+            <div class="rep-section-label">Restore from backup</div>
+            <input type="file" id="import-file" accept=".json" style="font-size:.82rem;margin-bottom:8px">
+            <button class="btn btn-g btn-sm" onclick="importBackup()">Import Backup</button>
+          </div>
+          <div class="rep-card">
+            <h3>📧 Share by Email</h3>
+            <p>Compose a quick summary email to send to your physician or healthcare team.</p>
+            <div class="rep-btns">
+              <button class="btn btn-t" onclick="shareByEmail(30)">Share 30-Day Summary</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Profiles ───────────────────────────────────────────── -->
+      <div id="page-profiles" class="page-section" style="display:none">
+        <div class="section-header">
+          <h2>Profiles</h2>
+          <button class="btn btn-p" onclick="openAddProfile()">+ Add Profile</button>
+        </div>
+        <div id="profiles-list"></div>
+      </div>
+
+      <!-- ── Settings ───────────────────────────────────────────── -->
+      <div id="page-settings" class="page-section" style="display:none">
+        <div class="section-header"><h2>Settings</h2></div>
+
+        <div class="settings-section">
+          <h3>Account</h3>
+          <div class="settings-row"><div><div class="settings-label">Username</div><div id="set-username" class="settings-sub"></div></div></div>
+          <div class="settings-row"><div><div class="settings-label">Display Name</div><div id="set-displayname" class="settings-sub"></div></div></div>
+          <div class="settings-row"><div><div class="settings-label">Email</div><div id="set-email" class="settings-sub"></div></div>
+            <button class="btn btn-sm btn-g" onclick="openM('m-change-pw')">Change Password</button></div>
+        </div>
+
+        <div class="settings-section" id="set-form">
+          <h3>Preferences</h3>
+          <div class="settings-row"><div><div class="settings-label">Glucose Unit</div></div><select id="set-gluc-unit"><option value="mg/dL">mg/dL</option><option value="mmol/L">mmol/L</option></select></div>
+          <div class="settings-row"><div><div class="settings-label">Weight Unit</div></div><select id="set-weight-unit"><option value="kg">kg</option><option value="lbs">lbs</option></select></div>
+          <div class="settings-row"><div><div class="settings-label">Height Unit</div></div><select id="set-height-unit"><option value="cm">cm</option><option value="ft/in">ft / in</option></select></div>
+          <div class="settings-row"><div><div class="settings-label">Theme</div></div><select id="set-theme"><option value="light">Light</option><option value="dark">Dark</option></select></div>
+          <div class="settings-row"><div><div class="settings-label">Browser Reminders</div><div class="settings-sub">Medication &amp; glucose check notifications</div></div>
+            <button class="btn btn-sm" id="set-notif-btn" onclick="toggleReminders()">Enable Reminders</button></div>
+          <div class="settings-row"><div><div class="settings-label">Low Glucose Threshold (mg/dL)</div></div><input type="number" id="set-gluc-low" min="50" max="100" style="max-width:90px"></div>
+          <div class="settings-row"><div><div class="settings-label">High Glucose Threshold (mg/dL)</div></div><input type="number" id="set-gluc-high" min="120" max="250" style="max-width:90px"></div>
+          <div class="settings-row"><div><div class="settings-label">Tracking Period Name</div></div><input type="text" id="set-period-name" style="max-width:180px"></div>
+          <div class="settings-row"><div><div class="settings-label">Tracking Start Date</div></div><input type="date" id="set-period-start" style="max-width:160px"></div>
+          <div class="settings-row"><div><div class="settings-label">Tracking End Date</div></div><input type="date" id="set-period-end" style="max-width:160px"></div>
+          <div class="mt-16"><button class="btn btn-p" onclick="saveSettings()">Save Settings</button> <button class="btn btn-g" onclick="resetSettings()">Reset Defaults</button></div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Data &amp; Storage</h3>
+          <div class="settings-row"><div><div class="settings-label">Storage Used</div><div id="set-storage" class="settings-sub"></div></div></div>
+          <div class="settings-row"><div><div class="settings-label">Reset Demo Data</div><div class="settings-sub">Re-seed all demo records</div></div><button class="btn btn-sm btn-g" onclick="resetDemoData()">Reset Demo</button></div>
+          <div class="settings-row"><div><div class="settings-label">Clear Profile Data</div><div class="settings-sub">Remove all logs for active profile</div></div><button class="btn btn-sm btn-d" onclick="clearProfileData()">Clear Data</button></div>
+          <div class="settings-row"><div><div class="settings-label">Delete Account</div><div class="settings-sub">Permanently removes all data</div></div><button class="btn btn-sm btn-d" onclick="deleteAccount()">Delete Account</button></div>
+        </div>
+      </div>
+
+      <!-- ── Audit Log ──────────────────────────────────────────── -->
+      <div id="page-auditlog" class="page-section" style="display:none">
+        <div class="section-header"><h2>Audit Log</h2><span class="muted">Every data change you make is recorded here.</span></div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table class="tbl" id="audit-table">
+              <thead><tr><th data-sort="ts">Timestamp</th><th>Action</th><th>Data Type</th><th>Summary</th></tr></thead>
+              <tbody id="audit-tbody"></tbody>
+            </table>
+          </div>
+          <div id="audit-tbody-pager"></div>
+        </div>
+      </div>
+
+    </div><!-- /page-wrap -->
+
+    <!-- ── Footer ───────────────────────────────────────────────── -->
+    <footer class="app-footer">
+      <div class="app-footer-copy">&copy; 2026 DiaMetrics</div>
+    </footer>
+
+  </div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════════════════════════ -->
+
+<!-- Login -->
+<div class="mbg" id="m-login">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Log In</h2><button class="mx" onclick="closeM('m-login')">×</button></div>
+    <div class="mbody" id="login-form">
+      <div class="form-group"><label>Username</label><input type="text" id="login-user" placeholder="Enter username" autocomplete="username"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-login');openM('m-signup')">Sign Up</button>
+      <button class="btn btn-p" onclick="doLogin()">Log In</button>
+    </div>
+  </div>
+</div>
+
+<!-- Signup -->
+<div class="mbg" id="m-signup">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Create Account</h2><button class="mx" onclick="closeM('m-signup')">×</button></div>
+    <div class="mbody" id="signup-form">
+      <div class="form-group"><label>Full Name</label><input type="text" id="su-fn" placeholder="Your name"><div id="su-fn-err" class="field-err"></div></div>
+      <div class="form-group"><label>Username</label><input type="text" id="su-un" placeholder="Choose a username" autocomplete="username"><div id="su-un-err" class="field-err"></div></div>
+      <div class="form-group"><label>Email</label><input type="email" id="su-em" placeholder="your@email.com"><div id="su-em-err" class="field-err"></div></div>
+      <div class="form-group"><label>Password</label><input type="password" id="su-pw" placeholder="Min 6 characters"><div id="su-pw-err" class="field-err"></div></div>
+      <div class="form-group"><label>Confirm Password</label><input type="password" id="su-p2" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doSignup()"><div id="su-p2-err" class="field-err"></div></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-signup');openM('m-login')">Log In Instead</button>
+      <button class="btn btn-p" onclick="doSignup()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password -->
+<div class="mbg" id="m-change-pw">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Change Password</h2><button class="mx" onclick="closeM('m-change-pw')">×</button></div>
+    <div class="mbody" id="cp-form">
+      <div class="form-group"><label>Current Password</label><input type="password" id="cp-old"><div id="cp-old-err" class="field-err"></div></div>
+      <div class="form-group"><label>New Password</label><input type="password" id="cp-new"><div id="cp-new-err" class="field-err"></div></div>
+      <div class="form-group"><label>Confirm New Password</label><input type="password" id="cp-con"><div id="cp-con-err" class="field-err"></div></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-change-pw')">Cancel</button>
+      <button class="btn btn-p" onclick="changePassword()">Update Password</button>
+    </div>
+  </div>
+</div>
+
+<!-- Glucose Log -->
+<div class="mbg" id="m-glucose">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Log Glucose Reading</h2><button class="mx" onclick="closeM('m-glucose')">×</button></div>
+    <div class="mbody" id="gl-form">
+      <input type="hidden" id="gl-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="gl-date"><div id="gl-date-err" class="field-err"></div></div>
+        <div class="form-group"><label>Time</label><input type="time" id="gl-time"><div id="gl-time-err" class="field-err"></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Glucose Value (mg/dL)</label><input type="number" id="gl-value" min="20" max="700" placeholder="e.g. 110"><div id="gl-value-err" class="field-err"></div></div>
+        <div class="form-group"><label>Reading Type</label><select id="gl-type">${C.READING_TYPES.map(t=>`<option>${t}</option>`).join('')}</select><div id="gl-type-err" class="field-err"></div></div>
+      </div>
+      <div class="form-group"><label>Notes (optional)</label><textarea id="gl-notes" rows="2" placeholder="Any context…"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-glucose')">Cancel</button>
+      <button class="btn btn-p" onclick="saveGlucose()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Weight Log -->
+<div class="mbg" id="m-weight">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Log Weight</h2><button class="mx" onclick="closeM('m-weight')">×</button></div>
+    <div class="mbody" id="wl-form">
+      <input type="hidden" id="wl-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="wl-date"><div id="wl-date-err" class="field-err"></div></div>
+        <div class="form-group"><label>Weight (kg)</label><input type="number" id="wl-value" step="0.1" placeholder="e.g. 72.5"><div id="wl-value-err" class="field-err"></div></div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="wl-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-weight')">Cancel</button>
+      <button class="btn btn-p" onclick="saveWeight()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Meal Log -->
+<div class="mbg" id="m-meal">
+  <div class="modal">
+    <div class="mhdr"><h2>Log Meal</h2><button class="mx" onclick="closeM('m-meal')">×</button></div>
+    <div class="mbody" id="ml-form">
+      <input type="hidden" id="ml-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="ml-date"><div id="ml-date-err" class="field-err"></div></div>
+        <div class="form-group"><label>Meal Type</label><select id="ml-meal"><option value="">Select…</option>${C.MEALS.map(m=>`<option>${m}</option>`).join('')}</select><div id="ml-meal-err" class="field-err"></div></div>
+      </div>
+      <div class="form-group"><label>Food Description</label><textarea id="ml-food" rows="2" placeholder="e.g. Rice, dal, vegetables, curd"></textarea><div id="ml-food-err" class="field-err"></div></div>
+      <div class="form-row">
+        <div class="form-group"><label>Carbs (g) <span class="muted">optional</span></label><input type="number" id="ml-carbs" min="0" placeholder="e.g. 55"></div>
+        <div class="form-group"><label>Calories (kcal) <span class="muted">optional</span></label><input type="number" id="ml-cals" min="0" placeholder="e.g. 420"></div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="ml-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-meal')">Cancel</button>
+      <button class="btn btn-p" onclick="saveMeal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise Log -->
+<div class="mbg" id="m-exercise">
+  <div class="modal">
+    <div class="mhdr"><h2>Log Exercise</h2><button class="mx" onclick="closeM('m-exercise')">×</button></div>
+    <div class="mbody" id="ex-form">
+      <input type="hidden" id="ex-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="ex-date"><div id="ex-date-err" class="field-err"></div></div>
+        <div class="form-group"><label>Exercise Type</label><select id="ex-type"><option value="">Select…</option>${C.EXERCISE_TYPES.map(t=>`<option>${t}</option>`).join('')}</select><div id="ex-type-err" class="field-err"></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Duration (min)</label><input type="number" id="ex-dur" min="1" max="600"><div id="ex-dur-err" class="field-err"></div></div>
+        <div class="form-group"><label>Intensity</label><select id="ex-int"><option value="">Select…</option>${C.INTENSITY.map(i=>`<option>${i}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Steps <span class="muted">optional</span></label><input type="number" id="ex-steps" min="0"></div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="ex-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-exercise')">Cancel</button>
+      <button class="btn btn-p" onclick="saveExercise()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Insulin Log -->
+<div class="mbg" id="m-insulin">
+  <div class="modal">
+    <div class="mhdr"><h2>Log Insulin Dose</h2><button class="mx" onclick="closeM('m-insulin')">×</button></div>
+    <div class="mbody" id="in-form">
+      <input type="hidden" id="in-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="in-date"><div id="in-date-err" class="field-err"></div></div>
+        <div class="form-group"><label>Time <span class="req">*</span></label><input type="time" id="in-time"><div id="in-time-err" class="field-err"></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Insulin Type</label><select id="in-type"><option value="">Select…</option>${C.INSULIN_TYPES.map(t=>`<option>${t}</option>`).join('')}</select><div id="in-type-err" class="field-err"></div></div>
+        <div class="form-group"><label>Units</label><input type="number" id="in-units" min="0.5" max="200" step="0.5"><div id="in-units-err" class="field-err"></div></div>
+      </div>
+      <div class="form-group"><label>Injection Site</label><select id="in-site"><option value="">Select…</option>${C.INJECTION_SITES.map(s=>`<option>${s}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Notes</label><textarea id="in-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-insulin')">Cancel</button>
+      <button class="btn btn-p" onclick="saveInsulin()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sleep Log -->
+<div class="mbg" id="m-sleep">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Log Sleep &amp; Stress</h2><button class="mx" onclick="closeM('m-sleep')">×</button></div>
+    <div class="mbody" id="sl-form">
+      <input type="hidden" id="sl-id" value="0">
+      <div class="form-group"><label>Date</label><input type="date" id="sl-date"><div id="sl-date-err" class="field-err"></div></div>
+      <div class="form-row">
+        <div class="form-group"><label>Sleep Hours</label><input type="number" id="sl-hours" min="0" max="24" step="0.5"><div id="sl-hours-err" class="field-err"></div></div>
+        <div class="form-group"><label>Sleep Quality (1–5)</label><select id="sl-qual"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+      </div>
+      <div class="form-group"><label>Stress Level (1–10)</label><input type="number" id="sl-stress" min="1" max="10"><div id="sl-stress-err" class="field-err"></div></div>
+      <div class="form-group"><label>Notes</label><textarea id="sl-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-sleep')">Cancel</button>
+      <button class="btn btn-p" onclick="saveSleep()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Note / Journal -->
+<div class="mbg" id="m-note">
+  <div class="modal">
+    <div class="mhdr"><h2>Journal Entry</h2><button class="mx" onclick="closeM('m-note')">×</button></div>
+    <div class="mbody" id="nt-form">
+      <input type="hidden" id="nt-id" value="0">
+      <div class="form-group"><label>Date</label><input type="date" id="nt-date"><div id="nt-date-err" class="field-err"></div></div>
+      <div class="form-group"><label>How are you feeling?</label><textarea id="nt-text" rows="4" placeholder="Write your daily health notes…"></textarea><div id="nt-text-err" class="field-err"></div></div>
+      <div class="form-group">
+        <label>Symptoms (select all that apply)</label>
+        <div class="symptom-chips">
+          ${C.SYMPTOMS.map(s=>`<label class="symptom-chip-label"><input type="checkbox" class="symptom-cb" value="${s}"> ${s}</label>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-note')">Cancel</button>
+      <button class="btn btn-p" onclick="saveNote()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lab Result -->
+<div class="mbg" id="m-lab">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Add Lab Result</h2><button class="mx" onclick="closeM('m-lab')">×</button></div>
+    <div class="mbody" id="lr-form">
+      <input type="hidden" id="lr-id" value="0">
+      <div class="form-group"><label>Date</label><input type="date" id="lr-date"><div id="lr-date-err" class="field-err"></div></div>
+      <div class="form-group"><label>Test Name</label><select id="lr-test" onchange="_updateLabUnit()"><option value="">Select…</option>${C.LAB_TESTS.map(t=>`<option>${t}</option>`).join('')}</select><div id="lr-test-err" class="field-err"></div></div>
+      <div class="form-group"><label>Value <span class="inline-unit" id="lr-unit"></span></label><input type="number" id="lr-value" step="0.01" min="0"><div id="lr-value-err" class="field-err"></div></div>
+      <div class="form-group" id="lr-diastolic-group" style="display:none">
+        <label>Diastolic BP <span class="inline-unit">mmHg</span></label>
+        <input type="number" id="lr-diastolic" step="1" min="0" placeholder="e.g. 80">
+        <div id="lr-diastolic-err" class="field-err"></div>
+        <div class="muted" style="font-size:.78rem;margin-top:4px">Will be saved as a separate Diastolic BP entry automatically.</div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="lr-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-lab')">Cancel</button>
+      <button class="btn btn-p" onclick="saveLab()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Medication -->
+<div class="mbg" id="m-medication">
+  <div class="modal">
+    <div class="mhdr"><h2>Add / Edit Medication</h2><button class="mx" onclick="closeM('m-medication')">×</button></div>
+    <div class="mbody" id="med-form">
+      <input type="hidden" id="med-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Medication Name</label><input type="text" id="med-name" placeholder="e.g. Metformin"><div id="med-name-err" class="field-err"></div></div>
+        <div class="form-group"><label>Dosage</label><input type="text" id="med-dose" placeholder="e.g. 500mg"><div id="med-dose-err" class="field-err"></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Frequency</label><select id="med-freq"><option value="">Select…</option>${C.FREQ.map(f=>`<option>${f}</option>`).join('')}</select><div id="med-freq-err" class="field-err"></div></div>
+        <div class="form-group"><label>Time of Day</label><input type="text" id="med-tod" placeholder="e.g. Morning, Evening"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Start Date</label><input type="date" id="med-start"><div id="med-start-err" class="field-err"></div></div>
+        <div class="form-group"><label>Refill Date <span class="muted">optional</span></label><input type="date" id="med-refill"></div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="med-notes" rows="2"></textarea></div>
+      <div class="checkbox-row"><input type="checkbox" id="med-active" checked><label for="med-active">Active (currently taking)</label></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-medication')">Cancel</button>
+      <button class="btn btn-p" onclick="saveMed()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Goal -->
+<div class="mbg" id="m-goal">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h2>Set Goal</h2><button class="mx" onclick="closeM('m-goal')">×</button></div>
+    <div class="mbody" id="goal-form">
+      <input type="hidden" id="goal-id" value="0">
+      <div class="form-group"><label>Goal Type</label>
+        <select id="goal-type" onchange="onGoalTypeChange()">
+          <option value="">Select…</option>
+          <option>HbA1c</option><option>Fasting Glucose</option><option>Post-Meal Glucose</option>
+          <option>Weight</option><option>Steps</option><option>LDL Cholesterol</option>
+          <option>Triglycerides</option><option>BMI</option>
+        </select><div id="goal-type-err" class="field-err"></div></div>
+      <div class="form-row">
+        <div class="form-group"><label>Target Value</label><input type="number" id="goal-target" step="0.1" min="0"><div id="goal-target-err" class="field-err"></div></div>
+        <div class="form-group"><label>Unit</label><input type="text" id="goal-unit" placeholder="e.g. %"></div>
+      </div>
+      <div class="form-group"><label>Target Date</label><input type="date" id="goal-by"><div id="goal-by-err" class="field-err"></div></div>
+      <div class="form-group"><label>Notes</label><textarea id="goal-notes" rows="2"></textarea></div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-goal')">Cancel</button>
+      <button class="btn btn-p" onclick="saveGoal()">Save Goal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile -->
+<div class="mbg" id="m-profile">
+  <div class="modal modal-lg">
+    <div class="mhdr"><h2>Patient Profile</h2><button class="mx" onclick="closeM('m-profile')">×</button></div>
+    <div class="mbody" id="pf-form">
+      <input type="hidden" id="pf-id" value="0">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" id="pf-name" placeholder="e.g. Alex Morgan"><div id="pf-name-err" class="field-err"></div></div>
+        <div class="form-group"><label>Profile Label</label><input type="text" id="pf-label" placeholder="e.g. Me, Mom, Dad"><div id="pf-label-err" class="field-err"></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date of Birth</label><input type="date" id="pf-dob"></div>
+        <div class="form-group"><label>Gender</label><select id="pf-gender"><option value="">—</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Height (cm)</label><input type="number" id="pf-height" min="50" max="250" placeholder="e.g. 170"></div>
+        <div class="form-group"><label>Weight (kg)</label><input type="number" id="pf-weight" min="10" max="500" step="0.1" placeholder="e.g. 70"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Physician Name</label><input type="text" id="pf-doctor" placeholder="Dr. Name"></div>
+        <div class="form-group"><label>Physician Phone</label><input type="text" id="pf-docph" placeholder="+91-..."></div>
+      </div>
+      <div class="form-group">
+        <label>Medical History</label>
+        <div class="checkbox-row"><input type="checkbox" id="pf-fam-diab"><label for="pf-fam-diab">Family history of diabetes</label></div>
+        <div class="checkbox-row"><input type="checkbox" id="pf-hyper"><label for="pf-hyper">Hypertension</label></div>
+        <div class="checkbox-row"><input type="checkbox" id="pf-gest"><label for="pf-gest">Gestational diabetes history</label></div>
+      </div>
+      <div class="form-group">
+        <label>Profile Photo <span class="muted">(optional · max 200 KB)</span></label>
+        <div style="display:flex;align-items:center;gap:14px">
+          <img id="pf-photo-preview" src="" alt="" style="width:56px;height:56px;border-radius:50%;object-fit:cover;display:none;border:2px solid var(--border)">
+          <div>
+            <input type="file" id="pf-photo-inp" accept="image/*" onchange="uploadProfilePhoto()" style="font-size:.82rem">
+            <input type="hidden" id="pf-photo-data">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mftr">
+      <button class="btn btn-g" onclick="closeM('m-profile')">Cancel</button>
+      <button class="btn btn-p" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── Scroll to top ──────────────────────────────────────────── -->
+<button class="scroll-top" id="scroll-top" title="Back to top">↑</button>
+
+<!-- ── Scripts ───────────────────────────────────────────────── -->
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- DiaMetrics modules (order matters) -->
+<script src="js/constants.js"></script>
+<script src="js/state.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/model.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/logs.js"></script>
+<script src="js/labs.js"></script>
+<script src="js/medications.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/goals.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/reports.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
