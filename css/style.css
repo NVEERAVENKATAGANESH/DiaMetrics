@@ -284,14 +284,14 @@ small  { font-size: .8rem; color: var(--text3); }
 }
 #hamburger span {
   display: block;
+  width: 22px;
   height: 2px;
   background: var(--text2);
-  border-radius: 2px;
+  border-radius: 1px;
   transition: transform .2s ease, opacity .2s ease;
-  width: 100%;
 }
 #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-#hamburger.open span:nth-child(2) { opacity: 0; }
+#hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── Row 2: nav tabs ── */
